@@ -1,0 +1,25 @@
+{
+  "name": "template-webpack",
+  "version": "1.0.0",
+  "description": "Start webpack typescript project",
+  "main": "index.ts",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js --env env=prod",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d ./dist",
+    "start": "webpack serve --mode=development",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier ./src --write",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "cypress": "./node_modules/.bin/cypress open",
+    "cypress:clear": "./node_modules/.bin/cypress cache clear"
+  },
+  "keywords": [
+    "webpack",
+    "template"
+  ],
+  "author": "Annenkov A.Pe.",
+  "license": "UNLICENSED"
+}
