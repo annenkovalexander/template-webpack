@@ -1,5 +1,6 @@
 const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -60,31 +61,12 @@ module.exports = {
         use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.scss$/,
+        test: /\module\.((c|sa|sc)ss)$/i,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  require('@zeecoder/postcss-container-query'), // Container queries
-                  require('postcss-preset-env')({ // Other modern CSS features
-                    features: {
-                      'nesting-rules': true
-                    }
-                  })
-                ]
-              }
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
+          'postcss-loader',
+          'sass-loader',
         ],
       },
       {
@@ -107,6 +89,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new MiniCssExtractPlugin(),
     new ESLintPlugin({
       extensions: ['.js', '.jsx', '.ts', '.tsx']
     }),
